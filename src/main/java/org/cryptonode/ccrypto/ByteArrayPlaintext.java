@@ -16,6 +16,8 @@
 
 package org.cryptonode.ccrypto;
 
+import java.util.Arrays;
+
 /**
  *
  */
@@ -24,10 +26,33 @@ public class ByteArrayPlaintext implements Plaintext {
     private final byte[] plaintext;
 
     public ByteArrayPlaintext(byte[] plaintext) {
+        if (plaintext == null) {
+            throw new IllegalThreadStateException("Plaintext cannot be null.");
+        }
+
         this.plaintext = plaintext;
     }
 
     public byte[] getPlaintext() {
         return plaintext;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ByteArrayPlaintext that = (ByteArrayPlaintext) o;
+
+        return Arrays.equals(plaintext, that.plaintext);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(plaintext);
     }
 }

@@ -17,6 +17,7 @@
 package org.cryptonode.ccrypto;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 /**
  *
@@ -31,10 +32,36 @@ public class StringPlaintext implements Plaintext {
     }
 
     public StringPlaintext(String plaintext, Charset charset) {
+        if (plaintext == null) {
+            throw new IllegalArgumentException("Plaintext cannot be null.");
+        }
+        if (charset == null) {
+            throw new IllegalArgumentException("Charset cannot be null.");
+        }
+
         this.plaintext = plaintext.getBytes(charset);
     }
 
     public byte[] getPlaintext() {
         return plaintext;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        StringPlaintext that = (StringPlaintext) o;
+
+        return Arrays.equals(plaintext, that.plaintext);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(plaintext);
     }
 }

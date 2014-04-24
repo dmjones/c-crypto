@@ -20,21 +20,34 @@ package org.cryptonode.ccrypto;
  *
  */
 public enum SymmetricAlgorithm {
-    AES_128(128, "128-bit AES"),
-    AES_192(192, "192-bit AES"),
-    AES_256(256, "256-bit AES"),
-    DES3(192, "Triple DES"),
-    DES2(128, "Double DES"),
-    DES(64, "DES");
+    AES_128(128, "128-bit AES", "AES"),
+    AES_192(192, "192-bit AES", "AES"),
+    AES_256(256, "256-bit AES", "AES"),
+    DES3(192, "Triple DES", "DESede"),
+    DES2(128, "Double DES", "DESede"),
+    DES(64, "DES", "DES");
 
     private final int keyBitLength;
     private final String name;
+    private final String jceAlgorithmName;
 
 
-    SymmetricAlgorithm(int keyBitLength, String name) {
+    SymmetricAlgorithm(int keyBitLength, String name, String jceAlgorithmName) {
         this.keyBitLength = keyBitLength;
         this.name = name;
+        this.jceAlgorithmName = jceAlgorithmName;
     }
 
+    public int getKeyBitLength() {
+        return keyBitLength;
+    }
 
+    public String getJceAlgorithmName() {
+        return jceAlgorithmName;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
